@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Logging_1 = __importDefault(require("../library/Logging"));
-const IS_DEPLOYED = process.env.IS_DEPLOYED !== "true" ? false : true;
+const server_1 = require("../../server");
 /* LOCAL MONGO CONSTANTS */
 const DB_NAME = "techshop";
 /** DEPLOYED MONGO ATLAS CONSTANTS */
@@ -45,7 +45,7 @@ function connectDeployed() {
         }
     });
 }
-if (IS_DEPLOYED) {
+if (server_1.IS_DEPLOYED) {
     connectDeployed();
 }
 else {

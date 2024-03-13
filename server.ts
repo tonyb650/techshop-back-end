@@ -13,6 +13,7 @@ import mongoose from 'mongoose'
 import noteRouter from './src/routes/note.routes'
 
 dotenv.config() // loads environmental variables to whole project
+export const IS_DEPLOYED: boolean = process.env.IS_DEPLOYED !== "true" ? false : true
 
 /** Specify allowed origins for CORS options as defined below (Note that Dave Gray put this in a separate file in the config folder)*/
 const allowedOrigins = [
@@ -71,7 +72,11 @@ require('./src/config/mongoose.config'); // start database connection here
 app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong'}))
 
 /** Static Files Route */
-app.use('/' , express.static(path.join(__dirname, 'public'))) // 'path' is from NodeJS. Listens for root route. __dirname is a global variable. We're telling Express where to find static files.
+if (IS_DEPLOYED) {
+  app.use('/' , express.static(path.join(__dirname,'..', 'public'))) // 'path' is from NodeJS. Listens for root route. __dirname is a global variable. We're telling Express where to find static files.
+} else {
+  app.use('/' , express.static(path.join(__dirname, 'public'))) // 'path' is from NodeJS. Listens for root route. __dirname is a global variable. We're telling Express where to find static files.
+}
 
 /** Root Router */
 app.use(rootRouter)

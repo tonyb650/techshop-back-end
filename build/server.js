@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.IS_DEPLOYED = void 0;
 const express_1 = __importDefault(require("express"));
 const user_routes_1 = __importDefault(require("./src/routes/user.routes"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -17,6 +18,7 @@ const errorHandler_1 = require("./src/middleware/errorHandler");
 const mongoose_1 = __importDefault(require("mongoose"));
 const note_routes_1 = __importDefault(require("./src/routes/note.routes"));
 dotenv_1.default.config(); // loads environmental variables to whole project
+exports.IS_DEPLOYED = process.env.IS_DEPLOYED !== "true" ? false : true;
 /** Specify allowed origins for CORS options as defined below (Note that Dave Gray put this in a separate file in the config folder)*/
 const allowedOrigins = [
     'http://localhost:5173',
@@ -69,7 +71,12 @@ require('./src/config/mongoose.config'); // start database connection here
 /** Healthcheck route*/
 app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
 /** Static Files Route */
-app.use('/', express_1.default.static(path_1.default.join(__dirname,'..', 'public'))); // 'path' is from NodeJS. Listens for root route. __dirname is a global variable. We're telling Express where to find static files.
+if (exports.IS_DEPLOYED) {
+    app.use('/', express_1.default.static(path_1.default.join(__dirname, '..', 'public'))); // 'path' is from NodeJS. Listens for root route. __dirname is a global variable. We're telling Express where to find static files.
+}
+else {
+    app.use('/', express_1.default.static(path_1.default.join(__dirname, 'public'))); // 'path' is from NodeJS. Listens for root route. __dirname is a global variable. We're telling Express where to find static files.
+}
 /** Root Router */
 app.use(root_routes_1.default);
 /** API routes here */

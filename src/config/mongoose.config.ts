@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Logging from '../library/Logging';
+import { IS_DEPLOYED } from '../../server';
 
-const IS_DEPLOYED: boolean = process.env.IS_DEPLOYED !== "true" ? false : true
 
 /* LOCAL MONGO CONSTANTS */
 const DB_NAME = "techshop";

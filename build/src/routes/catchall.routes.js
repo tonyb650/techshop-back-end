@@ -9,7 +9,7 @@ const catchAllRouter = (0, express_1.Router)();
 catchAllRouter.all('*', (req, res) => {
     res.status(404);
     if (req.accepts('html')) {
-        res.sendFile(path_1.default.join(__dirname, '..', 'views', '404.html'));
+        res.sendFile(path_1.default.join(__dirname, '..', 'views', '404.html')); // TODO the css file is not connecting from the public folder upon deployment
     }
     else if (req.accepts('json')) {
         res.json({ message: '404 Not Found' });
