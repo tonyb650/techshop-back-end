@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "start": "node build/server.js",
-    "build": "rm -rf build/ && tsc",
+    "build": "rm -rf build/ && cp -r ./src/views ./build/src && tsc",
     "dev": "nodemon server.ts"
   },
   "author": "",
