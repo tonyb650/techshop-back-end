@@ -69,7 +69,7 @@ require('./src/config/mongoose.config'); // start database connection here
 /** Healthcheck route*/
 app.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
 /** Static Files Route */
-app.use('/', express_1.default.static(path_1.default.join(__dirname, 'public'))); // 'path' is from NodeJS. Listens for root route. __dirname is a global variable. We're telling Express where to find static files.
+app.use('/', express_1.default.static(path_1.default.join(__dirname,'..', 'public'))); // 'path' is from NodeJS. Listens for root route. __dirname is a global variable. We're telling Express where to find static files.
 /** Root Router */
 app.use(root_routes_1.default);
 /** API routes here */
