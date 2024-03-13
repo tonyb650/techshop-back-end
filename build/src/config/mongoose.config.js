@@ -1,0 +1,53 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = __importDefault(require("mongoose"));
+const Logging_1 = __importDefault(require("../library/Logging"));
+const IS_DEPLOYED = process.env.IS_DEPLOYED !== "true" ? false : true;
+/* LOCAL MONGO CONSTANTS */
+const DB_NAME = "techshop";
+/** DEPLOYED MONGO ATLAS CONSTANTS */
+const MONGO_USERNAME = process.env.MONGO_USERNAME || "";
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "";
+const MONGO_URL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@techshop.7ejxpym.mongodb.net/appName=TechShop`;
+/* LOCAL MONGO DB CONFIG */
+function connectLocal() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield mongoose_1.default.connect(`mongodb://127.0.0.1:27017/${DB_NAME}`);
+            Logging_1.default.info(`Established a connection to local MongoDB. Database = ${DB_NAME}`);
+        }
+        catch (err) {
+            Logging_1.default.error(`Error connecting to local MongDB` + err);
+        }
+    });
+}
+/** DEPLOYED MONGO ATLAS CONFIG */
+function connectDeployed() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield mongoose_1.default.connect(MONGO_URL, { retryWrites: true, w: 'majority' });
+            Logging_1.default.info(`Established a connection to MongoDB Atlas`);
+        }
+        catch (err) {
+            Logging_1.default.error(`Error connecting to MongoDB Atlas` + err);
+        }
+    });
+}
+if (IS_DEPLOYED) {
+    connectDeployed();
+}
+else {
+    connectLocal();
+}

@@ -1,0 +1,43 @@
+{
+  "name": "sample_ts_back_end",
+  "version": "1.0.0",
+  "description": "Sample project to practice MERN deployment using Typescript",
+  "main": "server.ts",
+  "scripts": {
+    "start": "node build/server.js",
+    "build": "rm -rf build/ && tsc",
+    "dev": "nodemon server.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "chalk": "^4.1.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^3.4.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "express-async-handler": "^1.2.0",
+    "joi": "^17.12.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.1",
+    "mongoose-sequence": "^6.0.1",
+    "nodemon": "^3.1.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/date-fns": "^2.6.0",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/mongoose": "^5.11.97",
+    "@types/mongoose-sequence": "^3.0.11",
+    "@types/node": "^20.11.25",
+    "@types/uuid": "^9.0.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
+  }
+}
