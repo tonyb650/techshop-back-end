@@ -17,13 +17,7 @@ export const IS_DEPLOYED: boolean = process.env.IS_DEPLOYED !== "true" ? false :
 
 /** Specify allowed origins for CORS options as defined below (Note that Dave Gray put this in a separate file in the config folder)*/
 const allowedOrigins = [
-  'http://localhost:5173',
-  'http://weddingwordsmith.com', 
-  'https://weddingwordsmith.com', 
-  'http://api.weddingwordsmith.com', 
-  'https://api.weddingwordsmith.com', 
-  'http://www.weddingwordsmith.com', 
-  'https://www.weddingwordsmith.com'
+  'http://localhost:5173'
 ]
 
 /** Set up cors options object for CORS middleware below (Note that Dave Gray also put this in a separate file in the config folder)*/
@@ -78,7 +72,7 @@ if (IS_DEPLOYED) {
   app.use('/' , express.static(path.join(__dirname, 'public'))) // 'path' is from NodeJS. Listens for root route. __dirname is a global variable. We're telling Express where to find static files.
 }
 
-/** Root Router */
+/** Root Router ( / , index.html) */
 app.use(rootRouter)
 
 /** API routes here */
